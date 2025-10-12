@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>羅冠中 | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Noto Sans TC', sans-serif;
+    }
+    body {
+      background-color: #000;
+      color: #fff;
+      overflow-x: hidden;
+    }
+    header {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      perspective: 1000px;
+    }
+    h1 {
+      font-size: 4rem;
+      font-weight: 700;
+      letter-spacing: 4px;
+      opacity: 0;
+      transform-style: preserve-3d;
+    }
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 300;
+      margin-top: 20px;
+      opacity: 0;
+      transform-style: preserve-3d;
+    }
+    .line {
+      width: 0;
+      height: 2px;
+      background: #fff;
+      margin: 30px auto;
+      opacity: 0;
+    }
+    section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .about {
+      max-width: 700px;
+      font-weight: 300;
+      line-height: 2;
+      opacity: 0;
+    }
+    a {
+      color: #fff;
+      text-decoration: none;
+      border: 1px solid #fff;
+      padding: 10px 25px;
+      border-radius: 30px;
+      margin-top: 30px;
+      display: inline-block;
+      transition: all 0.3s ease;
+      opacity: 0;
+    }
+    a:hover {
+      background: #fff;
+      color: #000;
+    }
+    footer {
+      text-align: center;
+      padding: 50px 0;
+      font-size: 0.9rem;
+      color: #777;
+    }
+    /* 滑鼠拖尾粒子效果 */
+    .particle {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      background: white;
+      border-radius: 50%;
+      pointer-events: none;
+      mix-blend-mode: difference;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 id="title">羅冠中</h1>
+    <div class="line"></div>
+    <h2 id="subtitle">Creative Developer | Skibidigooner67</h2>
+  </header>
+
+  <section>
+    <p class="about">你好，我是羅冠中，一位熱愛程式、創意與技術融合的開發者。<br>
+      我喜歡用簡單的設計表達複雜的想法。<br>
+      我在 GitHub 上持續學習、創作，並嘗試打造屬於自己的風格。</p>
+    <a href="https://github.com/Skibidigooner67" target="_blank">我的 GitHub</a>
+  </section>
+
+  <footer>
+    © 2025 Luo Guanzhong | Designed & Animated with GSAP
+  </footer>
+
+  <script>
+    // 首頁進場動畫
+    gsap.to('#title', {duration: 1.2, opacity: 1, y: -10, ease: 'power3.out'});
+    gsap.to('.line', {duration: 1, width: 120, opacity: 1, delay: 0.8, ease: 'power2.inOut'});
+    gsap.to('#subtitle', {duration: 1.2, opacity: 1, y: -10, delay: 1.2, ease: 'power3.out'});
+    gsap.to('.about', {scrollTrigger: {trigger: '.about', start: 'top 80%'}, duration: 1.2, opacity: 1, y: -20, ease: 'power2.out'});
+    gsap.to('a', {scrollTrigger: {trigger: 'a', start: 'top 80%'}, duration: 1.2, opacity: 1, y: -10, ease: 'power2.out'});
+
+    // 滑鼠拖尾粒子
+    const particles = [];
+    document.addEventListener('mousemove', e => {
+      const p = document.createElement('div');
+      p.classList.add('particle');
+      document.body.appendChild(p);
+      gsap.set(p, {x: e.clientX, y: e.clientY});
+      gsap.to(p, {duration: 0.8, scale: 0, opacity: 0, ease: 'power1.out', onComplete: () => p.remove()});
+    });
+
+    // 標題 3D 視差效果
+    const title = document.getElementById('title');
+    const subtitle = document.getElementById('subtitle');
+    document.addEventListener('mousemove', e => {
+      const x = (window.innerWidth / 2 - e.clientX) / 50;
+      const y = (window.innerHeight / 2 - e.clientY) / 50;
+      gsap.to(title, {rotationY: x, rotationX: -y, duration: 0.5, ease: 'power2.out'});
+      gsap.to(subtitle, {rotationY: -x / 2, rotationX: y / 2, duration: 0.5, ease: 'power2.out'});
+    });
+
+    // 滾動視差背景閃爍效果
+    gsap.to('body', {
+      backgroundColor: '#111',
+      scrollTrigger: {
+        trigger: 'section',
+        start: 'top 50%',
+        scrub: true
+      }
+    });
+  </script>
+</body>
+</html>
