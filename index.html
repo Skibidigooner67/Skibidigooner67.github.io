@@ -1,159 +1,111 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>羅冠中 | Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;500;700&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>羅冠中 | 個人網站</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Noto Sans TC', sans-serif;
+    :root{
+      --bg:#07060a;
+      --card:#0f0e14;
+      --accent:#7afcff;
+      --accent2:#8b5cf6;
+      --muted:#9aa0b4;
+      --glass: rgba(255,255,255,0.04);
     }
-    body {
-      background-color: #000;
-      color: #fff;
-      overflow-x: hidden;
-    }
-    header {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      perspective: 1000px;
-    }
-    h1 {
-      font-size: 4rem;
-      font-weight: 700;
-      letter-spacing: 4px;
-      opacity: 0;
-      transform-style: preserve-3d;
-    }
-    h2 {
-      font-size: 1.5rem;
-      font-weight: 300;
-      margin-top: 20px;
-      opacity: 0;
-      transform-style: preserve-3d;
-    }
-    .line {
-      width: 0;
-      height: 2px;
-      background: #fff;
-      margin: 30px auto;
-      opacity: 0;
-    }
-    section {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .about {
-      max-width: 700px;
-      font-weight: 300;
-      line-height: 2;
-      opacity: 0;
-    }
-    a {
-      color: #fff;
-      text-decoration: none;
-      border: 1px solid #fff;
-      padding: 10px 25px;
-      border-radius: 30px;
-      margin-top: 30px;
-      display: inline-block;
-      transition: all 0.3s ease;
-      opacity: 0;
-    }
-    a:hover {
-      background: #fff;
-      color: #000;
-    }
-    footer {
-      text-align: center;
-      padding: 50px 0;
-      font-size: 0.9rem;
-      color: #777;
-    }
-    /* 滑鼠拖尾粒子效果 */
-    .particle {
-      position: fixed;
-      width: 6px;
-      height: 6px;
-      background: white;
-      border-radius: 50%;
-      pointer-events: none;
-      mix-blend-mode: difference;
-      opacity: 0.8;
-    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial; background: radial-gradient(1200px 600px at 10% 10%, rgba(123,92,246,0.08), transparent 8%), radial-gradient(1000px 500px at 90% 90%, rgba(122,252,255,0.04), transparent 6%), var(--bg); color:#fff;}
+    a{color:inherit;text-decoration:none}
+    .wrap{min-height:100vh;display:grid;grid-template-rows:auto 1fr auto}
+    header{position:fixed;left:0;right:0;top:0;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;backdrop-filter:blur(8px);background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-bottom:1px solid rgba(255,255,255,0.03);z-index:50}
+    .logo{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:0.6px}
+    .logo .dot{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 0 22px rgba(122,252,255,0.12),0 0 42px rgba(139,92,246,0.08)}
+    nav{display:flex;gap:18px;align-items:center}
+    nav a{padding:8px 12px;border-radius:8px;font-size:14px;color:var(--muted)}
+    nav a.cta{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#020617;font-weight:700}
+    main{padding-top:120px}
+    .hero{min-height:88vh;display:flex;align-items:center;gap:48px;padding:60px;position:relative;overflow:hidden}
+    .hero .left{flex:1;max-width:760px;z-index:2}
+    .eyebrow{font-weight:600;color:var(--muted);letter-spacing:1px}
+    h1{font-size:64px;margin:8px 0 12px;line-height:0.92;letter-spacing:-1px}
+    h1 .glow{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 6px 30px rgba(122,252,255,0.08))}
+    p.lead{color:var(--muted);font-size:18px;max-width:60ch}
+    .btns{display:flex;gap:12px;margin-top:22px}
+    .btn{padding:12px 18px;border-radius:12px;font-weight:700;background:transparent;border:1px solid rgba(255,255,255,0.06)}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#021}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border-radius:18px;padding:20px;box-shadow:0 8px 40px rgba(2,3,6,0.6);border:1px solid rgba(255,255,255,0.03)}
+    .right{width:480px;display:flex;justify-content:center;align-items:center;z-index:2}
+    .frame{width:420px;height:420px;border-radius:20px;position:relative;overflow:hidden;background:var(--glass);backdrop-filter:blur(8px);}
+    .frame img{width:100%;height:100%;object-fit:cover;opacity:0.96;}
+    .glass-info{position:absolute;left:20px;bottom:18px;padding:12px 14px;border-radius:12px;background:var(--glass);backdrop-filter:blur(6px);display:flex;gap:12px;align-items:center;border:1px solid rgba(255,255,255,0.03)}
+    .glass-info .meta{font-size:13px;color:var(--muted)}
+    footer{padding:36px 28px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+    canvas#p{position:absolute;inset:0;z-index:0}
+    @media(max-width:980px){.hero{flex-direction:column;align-items:flex-start}.right{width:100%}.frame{width:90vw;height:56vw}}
   </style>
 </head>
 <body>
+<div class="wrap">
   <header>
-    <h1 id="title">羅冠中</h1>
-    <div class="line"></div>
-    <h2 id="subtitle">Creative Developer | Skibidigooner67</h2>
+    <div class="logo"><div class="dot"></div>羅冠中</div>
+    <nav>
+      <a href="#about">關於</a>
+      <a href="#contact" class="cta">聯絡我</a>
+    </nav>
   </header>
-
-  <section>
-    <p class="about">你好，我是羅冠中，一位熱愛程式、創意與技術融合的開發者。<br>
-      我喜歡用簡單的設計表達複雜的想法。<br>
-      我在 GitHub 上持續學習、創作，並嘗試打造屬於自己的風格。</p>
-    <a href="https://github.com/Skibidigooner67" target="_blank">我的 GitHub</a>
-  </section>
-
+  <main>
+    <div class="hero">
+      <canvas id="p"></canvas>
+      <div class="left">
+        <div class="eyebrow">Hi, 我是</div>
+        <h1>羅冠中 <span class="glow">— 學生 / 程式菜鳥 / 資安菜鳥</span></h1>
+        <p class="lead">我正在學習程式與資安領域，喜歡挑戰與探索未知。雖然現在還是新手，但我對未來充滿幹勁！</p>
+        <div class="btns">
+          <a class="btn primary" href="#contact">聯絡我</a>
+          <a class="btn" href="https://www.instagram.com/skibidi_gooner67/" target="_blank">Instagram</a>
+        </div>
+      </div>
+      <div class="right">
+        <div class="frame card">
+          <img src="https://avatars.githubusercontent.com/u/233886797?v=4" alt="羅冠中頭像">
+          <div class="glass-info">
+            <div>
+              <div style="font-weight:700">羅冠中</div>
+              <div class="meta">學生 / 資安愛好者</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <section id="about" style="padding:60px 80px;">
+      <h2 style="font-size:36px;margin-bottom:12px;">關於我</h2>
+      <p style="max-width:70ch;color:var(--muted);font-size:17px;">嗨，我是羅冠中，一位正在學習的學生，目前對網頁開發與資訊安全充滿興趣。我其實低調喜歡CP。希望未來能夠做出更厲害的專案！</p>
+    </section>
+    <section id="contact" style="padding:60px 80px;">
+      <h2 style="font-size:36px;margin-bottom:12px;">聯絡我</h2>
+      <p style="color:var(--muted);font-size:17px;">Email：<a href="mailto:a0902133986@gmail.com">a0902133986@gmail.com</a></p>
+      <p style="color:var(--muted);font-size:17px;">IG：<a href="https://www.instagram.com/skibidi_gooner67/" target="_blank">@skibidi_gooner67</a></p>
+    </section>
+  </main>
   <footer>
-    © 2025 Luo Guanzhong | Designed & Animated with GSAP
+    <div>© <strong>羅冠中</strong> — 學生 / 程式菜鳥 / 資安菜鳥</div>
+    <div><a href="mailto:a0902133986@gmail.com">Email</a> · <a href="https://www.instagram.com/skibidi_gooner67/" target="_blank">Instagram</a></div>
   </footer>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script>
+  const c=document.getElementById('p');
+  const resize=()=>{c.width=c.clientWidth;c.height=c.clientHeight};resize();window.addEventListener('resize',resize);
+  const ctx=c.getContext('2d');
+  let ps=[];for(let i=0;i<90;i++){ps.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.8+0.4,v:0.2+Math.random()*0.9,a:Math.random()*0.6+0.2})}
+  function u(){ctx.clearRect(0,0,c.width,c.height);for(let i=0;i<ps.length;i++){let p=ps[i];p.x+=Math.cos((i+p.v)/20)*0.6;p.y-=p.v*0.4;ctx.beginPath();let g=ctx.createRadialGradient(p.x,p.y,p.r/3,p.x,p.y,p.r);g.addColorStop(0,'rgba(122,252,255,'+p.a+')');g.addColorStop(1,'rgba(139,92,246,0)');ctx.fillStyle=g;ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();if(p.y<-10)p.y=c.height+10}
+    requestAnimationFrame(u)};u();
 
-  <script>
-    // 首頁進場動畫
-    gsap.to('#title', {duration: 1.2, opacity: 1, y: -10, ease: 'power3.out'});
-    gsap.to('.line', {duration: 1, width: 120, opacity: 1, delay: 0.8, ease: 'power2.inOut'});
-    gsap.to('#subtitle', {duration: 1.2, opacity: 1, y: -10, delay: 1.2, ease: 'power3.out'});
-    gsap.to('.about', {scrollTrigger: {trigger: '.about', start: 'top 80%'}, duration: 1.2, opacity: 1, y: -20, ease: 'power2.out'});
-    gsap.to('a', {scrollTrigger: {trigger: 'a', start: 'top 80%'}, duration: 1.2, opacity: 1, y: -10, ease: 'power2.out'});
-
-    // 滑鼠拖尾粒子
-    const particles = [];
-    document.addEventListener('mousemove', e => {
-      const p = document.createElement('div');
-      p.classList.add('particle');
-      document.body.appendChild(p);
-      gsap.set(p, {x: e.clientX, y: e.clientY});
-      gsap.to(p, {duration: 0.8, scale: 0, opacity: 0, ease: 'power1.out', onComplete: () => p.remove()});
-    });
-
-    // 標題 3D 視差效果
-    const title = document.getElementById('title');
-    const subtitle = document.getElementById('subtitle');
-    document.addEventListener('mousemove', e => {
-      const x = (window.innerWidth / 2 - e.clientX) / 50;
-      const y = (window.innerHeight / 2 - e.clientY) / 50;
-      gsap.to(title, {rotationY: x, rotationX: -y, duration: 0.5, ease: 'power2.out'});
-      gsap.to(subtitle, {rotationY: -x / 2, rotationX: y / 2, duration: 0.5, ease: 'power2.out'});
-    });
-
-    // 滾動視差背景閃爍效果
-    gsap.to('body', {
-      backgroundColor: '#111',
-      scrollTrigger: {
-        trigger: 'section',
-        start: 'top 50%',
-        scrub: true
-      }
-    });
-  </script>
+  gsap.from('.hero .left',{duration:1.6,y:80,opacity:0,ease:'power3.out'});
+  gsap.from('.hero .right',{duration:1.6,y:80,opacity:0,delay:0.3,ease:'power3.out'});
+  gsap.from('header',{duration:1.4,opacity:0,y:-60,ease:'power2.out'});
+</script>
 </body>
 </html>
